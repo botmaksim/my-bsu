@@ -12,7 +12,6 @@ import (
 )
 
 func main() {
-	// Пытаемся загрузить .env (полезно для локальной разработки вне Docker)
 	_ = godotenv.Load()
 
 	serverPort := os.Getenv("SERVER_PORT")
@@ -20,7 +19,6 @@ func main() {
 		serverPort = "8080"
 	}
 
-	// Формируем строку подключения, используя все ваши переменные
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
@@ -35,7 +33,6 @@ func main() {
 	}
 	defer db.Close()
 
-	// Проверка доступности БД
 	if err := db.Ping(); err != nil {
 		log.Printf("Warning: Database not reachable: %v", err)
 	}
